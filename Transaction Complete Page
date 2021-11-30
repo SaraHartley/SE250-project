@@ -1,0 +1,20 @@
+<!--transactionComplete.php-->
+<!DOCTYPE html>
+<html>
+<body>
+
+<h1>SCSU Pizzeria</h1>
+
+<h2>Thank you for your order! Your transaction has been completed and your 
+order will be sent to you.</h2>
+
+<p>Please log out to exit</p>
+
+<form action="/action_page.php">
+  
+  <input type="submit" value="Logout" onclick="close()">
+</form>
+
+
+</body>
+</html>

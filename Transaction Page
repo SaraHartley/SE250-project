@@ -1,0 +1,24 @@
+<!--transaction.php-->
+<!DOCTYPE html>
+<html>
+<body>
+
+<h1>SCSU Pizzeria</h1>
+
+<h2>SCSU Pizzeria Order Payment</h2>
+
+<p>Enter your credit card information to purchase your order.</p>
+
+<form action="/action_page.php">
+  <?php $total = 0.78?>
+  Total: $ <?php echo$total?><br><br>
+  <label for="creditNum">Credit Card Number:</label><br>
+  <input type="text" id="creditNum" name="creditNum"><br>
+  <label for="securityNum">Security Number:</label><br>
+  <input type="password" id="securityNum" name="securityNum"><br><br>
+  <input type="submit" value="Complete Order">
+</form>
+
+
+</body>
+</html>

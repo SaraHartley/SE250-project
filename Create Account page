@@ -22,10 +22,11 @@
   <input type="submit" value="Create Account">
 </form>
 
-<form method = "Post" action = "login.php">
+<form method = "Post" action = "newLoginTest.php">
 	<input type="submit" value="Back to Login"><br><br>
 </form>
 
 
 </body>
 </html>
+

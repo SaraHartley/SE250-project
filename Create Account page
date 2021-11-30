@@ -1,0 +1,31 @@
+<!--createAccount.php-->
+<!DOCTYPE html>
+<html>
+<body>
+
+<h1>SCSU Pizzeria</h1>
+
+<h2>Create your SCSU Pizzeria Account.</h2>
+
+<p>Enter the information to create your account.</p>
+
+<form action="/action_page.php">
+  <label for="customerName">Name:</label><br>
+  <input type="text" id="customerName" name="customerName"><br>
+  <label for="streetAddress">Street Address:</label><br>
+  <input type="text" id="streetAddress" name="streetAddress"><br>
+  <label for="username">Username:</label><br>
+  <input type="text" id="username" name="username"><br>
+  <label for="pwd">Password:</label><br>
+  <input type="password" id="pwd" name="pwd"><br><br>
+  <!--<input type="submit" value="Back to Login"><br><br>-->
+  <input type="submit" value="Create Account">
+</form>
+
+<form method = "Post" action = "login.php">
+	<input type="submit" value="Back to Login"><br><br>
+</form>
+
+
+</body>
+</html>

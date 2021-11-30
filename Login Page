@@ -7,22 +7,33 @@
 
 <h2>Welcome to the SCSU Pizzeria</h2>
 
-<p><label id = "label1">Enter your login information to continue.</label></p>
+<p>
+  <label id = "label1">
+    <?php if (basename($_SERVER['HTTP_REFERER']) == $_SERVER['SCRIPT_NAME']) {
+      echo "You are missing some of the information. Please try again. hello";
+    } else {
+      echo "Enter your login information to continue.";
+    } ?>
+  </label>
+</p>
 
-<form action="/action_page.php">
+<form action="<?php echo $_SERVER['PHP_SELF']; ?>">
 <!--<form method = "Post" action = "order.php">-->
 	<label for="username">Username:</label><br>
-	<input type="text" id="username" name=""><br>
+	<input type="text" id="username" name="username"><br>
 	<label for="pwd">Password:</label><br>
 	<input type="password" id="pwd" name=""><br><br>
-	
-	<input type="submit" value="Login" onClick="validateLogin()"/> <br><br>
+	<form method = "Post" action = "createAccount.php">
+	<input type="submit" value="Create Account"><br><br>
+	</form>
+		<input type="submit" value="Login" onClick="validateLogin()"/> <br><br>
 	<script>
 		function validateLogin(){
 			
 			//let label2 = "validating login";
 			
-			document.getElementById('label1').innerHTML = "validating input";
+			document.getElementById('label1').innerHTML = "You are missing some of the information. Please try again.";
+			
 			
 			//let label2 = document.getElementById('label1');
 			//let empName = "validating login";

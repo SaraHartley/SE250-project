@@ -1,0 +1,87 @@
+<!--order.php-->
+<!DOCTYPE html>
+<html>
+<body>
+
+<h1>SCSU Pizzeria</h1>
+
+<p>Select from the options for each category.</p>
+
+<p>Size (Choose one option):</p>
+<form action="/action_page.php">
+  <input type="radio" id="small" name="size" value="small">
+  <label for="small">Small</label><br>
+  <input type="radio" id="medium" name="size" value="medium">
+  <label for="medium">Medium</label><br>
+  <input type="radio" id="large" name="size" value="large">
+  <label for="large">Large</label><br><br>
+</form> 
+
+<p>Crust (Choose one option):</p>
+<form action="/action_page.php">
+  <input type="radio" id="thin" name="crust" value="thin">
+  <label for="thin">Thin</label><br>
+  <input type="radio" id="regular" name="crust" value="regular">
+  <label for="regular">Regualr</label><br>
+  <input type="radio" id="deepdish" name="crust" value="deepdish">
+  <label for="deepdish">Deepdish</label><br>
+  <input type="radio" id="cheeseStuffed" name="crust" value="cheeseStuffed">
+  <label for="cheeseStuffed">Cheese-Stuffed</label><br><br>
+</form> 
+
+<p>Toppings (Choose at least one option):</p>
+<form action="/action_page.php">
+  <input type="checkbox" id="noTopping" name="toppings" value="noTopping">
+  <label for="noTopping">None</label><br>
+  <input type="checkbox" id="sausage" name="toppings" value="sausage">
+  <label for="sausage">Sausage</label><br>
+  <input type="checkbox" id="pepperoni" name="toppings" value="pepperoni">
+  <label for="pepperoni">Pepperoni</label><br>
+  <input type="checkbox" id="chicken" name="toppings" value="chicken">
+  <label for="chicken">Chicken</label><br>
+  <input type="checkbox" id="JalepPepp" name="toppings" value="JalepPepp">
+  <label for="JalepPepp">Jalepeno Peppers</label><br>
+  <input type="checkbox" id="cheese" name="toppings" value="cheese">
+  <label for="cheese">Cheese</label><br>
+  <input type="checkbox" id="extraCheese" name="toppings" value="extraCheese">
+  <label for="extraCheese">Extra Cheese</label><br>
+</form>
+
+<p>Sauce (Choose one option):</p>
+<form action="/action_page.php">
+  <input type="radio" id="ranch" name="sauce" value="ranch">
+  <label for="ranch">Ranch</label><br>
+  <input type="radio" id="marinara" name="sauce" value="marinara">
+  <label for="marinara">Marinara</label><br>
+  <input type="radio" id="noSauce" name="sauce" value="noSauce">
+  <label for="noSauce">None</label><br><br>
+</form>  
+
+<p>Sides (Choose at least one option):</p>
+<form action="/action_page.php">
+  <input type="checkbox" id="noSide" name="sides" value="noSide">
+  <label for="noSide">None</label><br>
+  <input type="checkbox" id="breadSticks" name="sides" value="breadSticks">
+  <label for="breadSticks">Bread Sticks</label><br>
+  <input type="checkbox" id="lavaCake" name="sides" value="lavaCake">
+  <label for="lavaCake">Lava Cake</label><br>
+  <input type="checkbox" id="salad" name="sides" value="salad">
+  <label for="salad">Salad</label><br>
+</form>  
+
+<p>Order Type (Choose one option):</p>
+<form action="/action_page.php">
+  <input type="radio" id="carryout" name="orderType" value="carryout">
+  <label for="carryout">Carryout</label><br>
+  <input type="radio" id="delivery" name="orderType" value="delivery">
+  <label for="delivery">Delivery</label><br>
+
+  <br><input type="submit" value="Confirm Order">
+</form>  
+<?php
+	$choices = array()
+?>
+
+
+</body>
+</html>

@@ -4,9 +4,13 @@ $preError = "Enter your login information to continue.";
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
 	if((empty($_POST['username']))or (empty($_POST['password']))){
 		$error = "You are missing some of the information. Please try again.";
+	}else{
+		//TODO:Database Validation code
+		$username = test_input($_POST["username"]);
+		//if 
+		
 	}
 }
-?>
 
 <!DOCTYPE html>
 <html>

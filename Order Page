@@ -1,24 +1,56 @@
 <!--order.php-->
+<?php
+require_once "config.php";
+
+$preError = "Select from the options for each category.";		//Condition
+if ($_SERVER["REQUEST_METHOD"] == "POST") { 					//catches POST
+	if((empty($_POST['size'])) or (empty($_POST['crust'])) or (empty($_POST['toppings'])) or (empty($_POST['sauce'])) or (empty($_POST['sides'])) or (empty($_POST['orderType']))){
+		$error = "One or more of the categories is missing a selection.";
+	}else{
+		//TODO:Database Validation code
+		//$username = test_input($_POST["username"]);
+		$tempBool = false;
+		if ($tempBool==true){
+			header('Location: transaction.php');
+		}else{
+			$error = "There was a Problem processing your order. Please contact the administration";
+		}
+	}
+}
+function test_input($data) {
+  $data = trim($data);
+  $data = stripslashes($data);
+  $data = htmlspecialchars($data);
+  return $data;
+}
+?>
+
 <!DOCTYPE html>
 <html>
 <body>
 
 <h1>SCSU Pizzeria</h1>
 
-<p>Select from the options for each category.</p>
+<p>
+  <label>
+    <?php if (isset($error)) {
+      echo $error;
+    } else {
+      echo $preError;
+    } ?>
+  </label>
+</p>
 
 <p>Size (Choose one option):</p>
-<form action="/action_page.php">
+<form method="POST" action="<?php echo $_SERVER['PHP_SELF']; ?>">
   <input type="radio" id="small" name="size" value="small">
   <label for="small">Small</label><br>
   <input type="radio" id="medium" name="size" value="medium">
   <label for="medium">Medium</label><br>
   <input type="radio" id="large" name="size" value="large">
   <label for="large">Large</label><br><br>
-</form> 
 
 <p>Crust (Choose one option):</p>
-<form action="/action_page.php">
   <input type="radio" id="thin" name="crust" value="thin">
   <label for="thin">Thin</label><br>
   <input type="radio" id="regular" name="crust" value="regular">
@@ -27,10 +59,8 @@
   <label for="deepdish">Deepdish</label><br>
   <input type="radio" id="cheeseStuffed" name="crust" value="cheeseStuffed">
   <label for="cheeseStuffed">Cheese-Stuffed</label><br><br>
-</form> 
 
 <p>Toppings (Choose at least one option):</p>
-<form action="/action_page.php">
   <input type="checkbox" id="noTopping" name="toppings" value="noTopping">
   <label for="noTopping">None</label><br>
   <input type="checkbox" id="sausage" name="toppings" value="sausage">
@@ -45,20 +75,16 @@
   <label for="cheese">Cheese</label><br>
   <input type="checkbox" id="extraCheese" name="toppings" value="extraCheese">
   <label for="extraCheese">Extra Cheese</label><br>
-</form>
 
 <p>Sauce (Choose one option):</p>
-<form action="/action_page.php">
   <input type="radio" id="ranch" name="sauce" value="ranch">
   <label for="ranch">Ranch</label><br>
   <input type="radio" id="marinara" name="sauce" value="marinara">
   <label for="marinara">Marinara</label><br>
   <input type="radio" id="noSauce" name="sauce" value="noSauce">
   <label for="noSauce">None</label><br><br>
-</form>  
 
 <p>Sides (Choose at least one option):</p>
-<form action="/action_page.php">
   <input type="checkbox" id="noSide" name="sides" value="noSide">
   <label for="noSide">None</label><br>
   <input type="checkbox" id="breadSticks" name="sides" value="breadSticks">
@@ -67,21 +93,20 @@
   <label for="lavaCake">Lava Cake</label><br>
   <input type="checkbox" id="salad" name="sides" value="salad">
   <label for="salad">Salad</label><br>
-</form>  
 
 <p>Order Type (Choose one option):</p>
-<form action="/action_page.php">
   <input type="radio" id="carryout" name="orderType" value="carryout">
   <label for="carryout">Carryout</label><br>
   <input type="radio" id="delivery" name="orderType" value="delivery">
   <label for="delivery">Delivery</label><br>
 
   <br><input type="submit" value="Confirm Order">
-</form>  
+</form>
+
+
 <?php
 	$choices = array()
 ?>
-
 
 </body>
 </html>

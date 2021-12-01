@@ -1,4 +1,28 @@
 <!--createAccount.php-->
+
+<?php
+require_once "config.php";
+
+$preError = "Enter the information to create your account.";		//Condition
+if ($_SERVER["REQUEST_METHOD"] == "POST") { 					//catches POST
+	if((empty($_POST['customerName'])) or (empty($_POST['streetAddress'])) or (empty($_POST['username'])) or (empty($_POST['pwd']))){
+		$error = "You are missing some of the information. Please try again.";
+	}else{
+		//TODO:Database Validation code
+		$username = test_input($_POST["username"]);
+		//<a href=order.php></a> 
+		//causes error
+		header('Location: login.php');
+	}
+}
+function test_input($data) {
+  $data = trim($data);
+  $data = stripslashes($data);
+  $data = htmlspecialchars($data);
+  return $data;
+}
+?>
+
 <!DOCTYPE html>
 <html>
 <body>
@@ -7,9 +31,17 @@
 
 <h2>Create your SCSU Pizzeria Account.</h2>
 
-<p>Enter the information to create your account.</p>
+<p>
+  <label>
+    <?php if (isset($error)) {
+      echo $error;
+    } else {
+      echo $preError;
+    } ?>
+  </label>
+</p>
 
-<form action="/action_page.php">
+<form method="POST" action="<?php echo $_SERVER['PHP_SELF']; ?>">  
   <label for="customerName">Name:</label><br>
   <input type="text" id="customerName" name="customerName"><br>
   <label for="streetAddress">Street Address:</label><br>
@@ -26,7 +58,5 @@
 	<input type="submit" value="Back to Login"><br><br>
 </form>
 
-
 </body>
 </html>
-

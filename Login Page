@@ -1,5 +1,7 @@
 <!--login.php-->
+
 <?php
+require_once "config.php"; //You may need to change the username and/or Password in config.php is this causes an error
 
 $preError = "Enter your login information to continue.";		//Condition
 if ($_SERVER["REQUEST_METHOD"] == "POST") { 					//catches POST

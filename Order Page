@@ -2,21 +2,230 @@
 <?php
 require_once "config.php";
 
-$preError = "Select from the options for each category.";		//Condition
-if ($_SERVER["REQUEST_METHOD"] == "POST") { 					//catches POST
-	if((empty($_POST['size'])) or (empty($_POST['crust'])) or (empty($_POST['toppings'])) or (empty($_POST['sauce'])) or (empty($_POST['sides'])) or (empty($_POST['orderType']))){
-		$error = "One or more of the categories is missing a selection.";
-	}else{
-		//TODO:Database Validation code
-		//$username = test_input($_POST["username"]);
+$preError = "Select from the options for each category.";
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+	$choices = array();
+	$tempBool = true;
+	
+	//size
+	if(empty($_POST['size'])){
+		$error = "The Size category is missing a selection.";
 		$tempBool = false;
-		if ($tempBool==true){
+	}else{
+		switch($_POST['size']){
+			case "small":
+				$arrayVal1 = 0;
+				break;
+			case "medium":
+				$arrayVal1 = 1;
+				break;
+			case "large":
+				$arrayVal1 = 2;
+				break;
+		}
+		array_push($choices,$arrayVal1);
+	}
+	
+	//crust
+	if(empty($_POST['crust'])){
+		$error = "The Crust category is missing a selection.";
+		$tempBool = false;
+
+	}else{
+		switch($_POST['crust']){
+			case "thin":
+				$arrayVal2 = 0;
+				break;
+			case "regular":
+				$arrayVal2 = 1;
+				break;
+			case "deepdish":
+				$arrayVal2 = 2;
+				break;
+			case "cheeseStuffed":
+				$arrayVal2 = 3;
+				break;	
+		}
+		array_push($choices,$arrayVal2);
+	}
+	
+	//Toppings
+	if(empty($_POST['toppings'])){
+		$error = "The Toppings category is missing a selection.";
+		$tempBool = false;
+		
+	}else if((in_array("noTopping",$_POST['toppings'])) and (in_array("sausage",$_POST['toppings'])) 
+		or (in_array("noTopping",$_POST['toppings'])) and (in_array("pepperoni",$_POST['toppings'])) 
+		or (in_array("noTopping",$_POST['toppings'])) and (in_array("chicken",$_POST['toppings'])) 
+		or (in_array("noTopping",$_POST['toppings'])) and (in_array("JalepPepp",$_POST['toppings']))
+		or (in_array("noTopping",$_POST['toppings'])) and (in_array("cheese",$_POST['toppings'])) 
+		or (in_array("noTopping",$_POST['toppings'])) and (in_array("extraCheese",$_POST['toppings']))){
+			$error = "Invalid input: None cannot be selected with another option for the Toppings category.";
+			$tempBool = false;
+
+	}else{
+		//check none
+		$arrayVal3 = (-1);
+		if(in_array("noTopping",$_POST['toppings'])){
+			$arrayVal3 = 1;
+		}else{
+			$arrayVal3 = 0;
+		}
+		array_push($choices,$arrayVal3);
+		
+		//check sausage
+		if((in_array("sausage",$_POST['toppings']))){
+			$arrayVal3 = 1;
+		}else{
+			$arrayVal3 = 0;
+		}
+		array_push($choices,$arrayVal3);
+		
+		//check pepperoni
+		if(in_array("pepperoni",$_POST['toppings'])){
+			$arrayVal3 = 1;
+		}else{
+			$arrayVal3 = 0;
+		}
+		array_push($choices,$arrayVal3);
+		
+		//check chicken
+		if(in_array("chicken",$_POST['toppings'])){
+			$arrayVal3 = 1;
+		}else{
+			$arrayVal3 = 0;
+		}
+		array_push($choices,$arrayVal3);
+		
+		//check jalpeno peppers
+		if(in_array("JalepPepp",$_POST['toppings'])){
+			$arrayVal3 = 1;
+		}else{
+			$arrayVal3 = 0;
+		}
+		array_push($choices,$arrayVal3);
+		
+		//check cheese
+		if(in_array("cheese",$_POST['toppings'])){
+			$arrayVal3 = 1;
+		}else{
+			$arrayVal3 = 0;
+		}
+		array_push($choices,$arrayVal3);
+		
+		//check extra cheese
+		if(in_array("extraCheese",$_POST['toppings'])){
+			$arrayVal3 = 1;
+		}else{
+			$arrayVal3 = 0;
+		}
+		array_push($choices,$arrayVal3);
+		
+	}
+	
+	//sauce
+	if(empty($_POST['sauce'])){
+		$error = "The Sauce category is missing a selection.";
+		$tempBool = false;
+
+	}else{
+		switch($_POST['sauce']){
+			case "ranch":
+				$arrayVal4 = 0;
+				break;
+			case "marinara":
+				$arrayVal4 = 1;
+				break;
+			case "noSauce":
+				$arrayVal4 = 2;
+				break;
+		}
+		array_push($choices,$arrayVal4);
+	}
+	
+	//Sides
+	if(empty($_POST['sides'])){
+		$error = "The Sides category is missing a selection.";
+		$tempBool = false;
+		
+	}else if((in_array("noSide",$_POST['sides'])) and (in_array("breadSticks",$_POST['sides'])) 
+		or (in_array("noSide",$_POST['sides'])) and (in_array("lavaCake",$_POST['sides']))
+		or (in_array("noSide",$_POST['sides'])) and (in_array("salad",$_POST['sides']))){
+			$error = "Invalid input: None cannot be selected with another option for the Sides category.";
+			$tempBool = false;
+			
+	}else{
+		//check none
+		$arrayVal5;
+		$noneBool2 = false;
+		if(in_array("noSide",$_POST['sides'])){
+			$arrayVal5 = 1;
+			$noneBool2 = true;
+		}else{
+			$arrayVal5 = 0;
+		}
+		array_push($choices,$arrayVal5);
+		
+		//check breadsticks
+		if(in_array("breadSticks",$_POST['sides'])){
+			$arrayVal5 = 1;
+		}else{
+			$arrayVal5 = 0;
+		}
+		array_push($choices,$arrayVal5);
+		
+		//check lava cake
+		if(in_array("lavaCake",$_POST['sides'])){
+			$arrayVal5 = 1;
+		}else{
+			$arrayVal5 = 0;
+		}
+		array_push($choices,$arrayVal5);
+		
+		//check salad
+		if(in_array("salad",$_POST['sides'])){
+			$arrayVal5 = 1;
+		}else{
+			$arrayVal5 = 0;
+		}
+		array_push($choices,$arrayVal5);
+	}
+	
+	//order type
+	if(empty($_POST['orderType'])){
+		$error = "The Order Type category is missing a selection.";
+		$tempBool = false;
+
+	}else{
+		switch($_POST['orderType']){
+			case "carryout":
+				$arrayVal6 = 0;
+				break;
+			case "delivery":
+				$arrayVal6 = 1;
+				break;
+		}
+		array_push($choices,$arrayVal6);
+	}
+	//print array values
+	//foreach($choices as $item){
+	//	echo $item . "\n";
+	//}	
+		
+		
+	//call c++ func
+	if ($tempBool==true){
+		//call c++ func
+		$returnBool=true;
+		if ($returnBool == true){
+			//call page with total
 			header('Location: transaction.php');
 		}else{
-			$error = "There was a Problem processing your order. Please contact the administration";
+			$error = "There was a Problem processing your order. Please contact the Admin.";
 		}
 	}
 }
+
 function test_input($data) {
   $data = trim($data);
   $data = stripslashes($data);
@@ -61,20 +270,20 @@ function test_input($data) {
   <label for="cheeseStuffed">Cheese-Stuffed</label><br><br>
 
 <p>Toppings (Choose at least one option):</p>
-  <input type="checkbox" id="noTopping" name="toppings" value="noTopping">
+  <input type="checkbox" id="noTopping" name="toppings[]" value="noTopping">
   <label for="noTopping">None</label><br>
-  <input type="checkbox" id="sausage" name="toppings" value="sausage">
+  <input type="checkbox" id="sausage" name="toppings[]" value="sausage">
   <label for="sausage">Sausage</label><br>
-  <input type="checkbox" id="pepperoni" name="toppings" value="pepperoni">
+  <input type="checkbox" id="pepperoni" name="toppings[]" value="pepperoni">
   <label for="pepperoni">Pepperoni</label><br>
-  <input type="checkbox" id="chicken" name="toppings" value="chicken">
+  <input type="checkbox" id="chicken" name="toppings[]" value="chicken">
   <label for="chicken">Chicken</label><br>
-  <input type="checkbox" id="JalepPepp" name="toppings" value="JalepPepp">
+  <input type="checkbox" id="JalepPepp" name="toppings[]" value="JalepPepp">
   <label for="JalepPepp">Jalepeno Peppers</label><br>
-  <input type="checkbox" id="cheese" name="toppings" value="cheese">
+  <input type="checkbox" id="cheese" name="toppings[]" value="cheese">
   <label for="cheese">Cheese</label><br>
-  <input type="checkbox" id="extraCheese" name="toppings" value="extraCheese">
-  <label for="extraCheese">Extra Cheese</label><br>
+  <input type="checkbox" id="extraCheese" name="toppings[]" value="extraCheese">
+  <label for="extraCheese">Extra Cheese</label><br><br>
 
 <p>Sauce (Choose one option):</p>
   <input type="radio" id="ranch" name="sauce" value="ranch">
@@ -85,13 +294,13 @@ function test_input($data) {
   <label for="noSauce">None</label><br><br>
 
 <p>Sides (Choose at least one option):</p>
-  <input type="checkbox" id="noSide" name="sides" value="noSide">
+  <input type="checkbox" id="noSide" name="sides[]" value="noSide">
   <label for="noSide">None</label><br>
-  <input type="checkbox" id="breadSticks" name="sides" value="breadSticks">
+  <input type="checkbox" id="breadSticks" name="sides[]" value="breadSticks">
   <label for="breadSticks">Bread Sticks</label><br>
-  <input type="checkbox" id="lavaCake" name="sides" value="lavaCake">
+  <input type="checkbox" id="lavaCake" name="sides[]" value="lavaCake">
   <label for="lavaCake">Lava Cake</label><br>
-  <input type="checkbox" id="salad" name="sides" value="salad">
+  <input type="checkbox" id="salad" name="sides[]" value="salad">
   <label for="salad">Salad</label><br>
 
 <p>Order Type (Choose one option):</p>
@@ -103,10 +312,6 @@ function test_input($data) {
   <br><input type="submit" value="Confirm Order">
 </form>
 
-
-<?php
-	$choices = array()
-?>
 
 </body>
 </html>

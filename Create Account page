@@ -9,10 +9,13 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") { 					//catches POST
 		$error = "You are missing some of the information. Please try again.";
 	}else{
 		//TODO:Database Validation code
-		$username = test_input($_POST["username"]);
-		//<a href=order.php></a> 
-		//causes error
-		header('Location: login.php');
+		//$username = test_input($_POST["username"]);
+		$tempBool = true;
+		if ($tempBool==true){
+			header('Location: login.php');
+		}else{
+			$error = "There was a Problem processing your order. Please contact the administration";
+		}
 	}
 }
 function test_input($data) {

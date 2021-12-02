@@ -1,6 +1,10 @@
 <!--login.php-->
-
 <?php
+//start session
+session_start();
+//$_SESSION["orderArray"] = array();
+$_SESSION["total"] = 0.00;
+
 require_once "config.php";
 
 $preError = "Enter your login information to continue.";		//Condition

@@ -1,4 +1,35 @@
 <!--transaction.php-->
+<?php
+session_start();
+//$_SESSION["total"] = call c++ transaction function to get total
+
+require_once "config.php";
+
+$preError = "Enter your credit card information to purchase your order.";		//Condition
+if ($_SERVER["REQUEST_METHOD"] == "POST") { 					//catches POST
+	if((empty($_POST['creditNum'])) or (empty($_POST['securityNum']))){
+		$error = "You are missing some of the information. Please try again.";
+	}else{
+
+		//TODO:call transaction class and pass the user input
+		//$username = test_input($_POST["username"]);
+		$tempBool = true;
+		if ($tempBool==true){
+			header('Location: transactionComplete.php');
+		}else{
+			$error = "There was a Problem processing your order. Please contact the administration";
+		}
+	}
+}
+function test_input($data) {
+  $data = trim($data);
+  $data = stripslashes($data);
+  $data = htmlspecialchars($data);
+  return $data;
+}
+
+?>
+
 <!DOCTYPE html>
 <html>
 <body>
@@ -7,11 +38,18 @@
 
 <h2>SCSU Pizzeria Order Payment</h2>
 
-<p>Enter your credit card information to purchase your order.</p>
+<p>
+  <label>
+    <?php if (isset($error)) {
+      echo $error;
+    } else {
+      echo $preError;
+    } ?>
+  </label>
+</p>
 
-<form action="/action_page.php">
-  <?php $total = 0.78?>
-  Total: $ <?php echo$total?><br><br>
+<form method="POST" action="<?php echo $_SERVER['PHP_SELF']; ?>">
+  Total: $ <?php echo $_SESSION["total"]?><br><br>
   <label for="creditNum">Credit Card Number:</label><br>
   <input type="text" id="creditNum" name="creditNum"><br>
   <label for="securityNum">Security Number:</label><br>

@@ -1,4 +1,21 @@
 <!--transactionComplete.php-->
+<?php
+session_start();
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+	//end session_cache_expire
+	// remove all session variables
+	session_unset();
+
+	// destroy the session
+	session_destroy();
+
+	echo "All session variables are now removed, and the session is destroyed.";
+
+	//redirect to login page
+	header('Location: login.php');
+}
+?>
+
 <!DOCTYPE html>
 <html>
 <body>
@@ -10,9 +27,9 @@ order will be sent to you.</h2>
 
 <p>Please log out to exit</p>
 
-<form action="/action_page.php">
+<form method="POST" action="<?php echo $_SERVER['PHP_SELF']; ?>">
   
-  <input type="submit" value="Logout" onclick="close()">
+  <input type="submit" value="Logout">
 </form>
 
 

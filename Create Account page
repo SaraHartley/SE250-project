@@ -1,6 +1,6 @@
 <!--createAccount.php-->
-
 <?php
+session_start();
 require_once "config.php";
 
 $preError = "Enter the information to create your account.";		//Condition

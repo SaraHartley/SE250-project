@@ -1,5 +1,7 @@
 <!--order.php-->
 <?php
+session_start();
+
 require_once "config.php";
 
 $preError = "Select from the options for each category.";
@@ -215,10 +217,13 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 		
 	//call c++ func
 	if ($tempBool==true){
-		//call c++ func
+		$_SESSION["orderArray"] = $choices;
+		//$returnBool = call c++ order function
+		//$call c++ transaction function to get total
+		$_SESSION["total"] = 4.57;
 		$returnBool=true;
 		if ($returnBool == true){
-			//call page with total
+			//call transaction page
 			header('Location: transaction.php');
 		}else{
 			$error = "There was a Problem processing your order. Please contact the Admin.";

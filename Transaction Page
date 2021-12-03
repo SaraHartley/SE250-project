@@ -35,7 +35,7 @@ function test_input($data) {
 <body>
 
 <h1>SCSU Pizzeria</h1>
-
+<center>
 <h2>SCSU Pizzeria Order Payment</h2>
 
 <p>
@@ -57,6 +57,6 @@ function test_input($data) {
   <input type="submit" value="Complete Order">
 </form>
 
-
+</center>
 </body>
 </html>

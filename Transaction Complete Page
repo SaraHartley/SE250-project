@@ -21,7 +21,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 <body>
 
 <h1>SCSU Pizzeria</h1>
-
+<center>
 <h2>Thank you for your order! Your transaction has been completed and your 
 order will be sent to you.</h2>
 
@@ -32,6 +32,6 @@ order will be sent to you.</h2>
   <input type="submit" value="Logout">
 </form>
 
-
+</center>
 </body>
 </html>

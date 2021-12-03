@@ -218,8 +218,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 	//call c++ func
 	if ($tempBool==true){
 		$_SESSION["orderArray"] = $choices;
-		//$returnBool = call c++ order function
-		//$call c++ transaction function to get total
+		
+		//Order class code goes here ************************
+		
 		$_SESSION["total"] = 4.57;
 		$returnBool=true;
 		if ($returnBool == true){
@@ -244,7 +245,7 @@ function test_input($data) {
 <body>
 
 <h1>SCSU Pizzeria</h1>
-
+<center>
 <p>
   <label>
     <?php if (isset($error)) {
@@ -317,6 +318,6 @@ function test_input($data) {
   <br><input type="submit" value="Confirm Order">
 </form>
 
-
+</center>
 </body>
 </html>

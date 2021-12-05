@@ -30,7 +30,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") { 					//catches POST
   	        $_SESSION['success'] = "You are now logged in";
   	        header('location: order.php');
         }else {
-            $error = "Your Login Name or Password is invalid";
+            $error = "Your Username or Password is invalid";
         }
     }
 		// $username = test_input($_POST['username']);
@@ -78,9 +78,8 @@ function test_input($data) {
 	<input type="submit" value="Login"/> <br><br>
 </form>
 
-<form method = "Post" action = "createAccount.php">
-	<input type="submit" value="Create Account"/><br><br>
-</form>
+
+<input type="button" value="Create Account" onclick="window.location.href='createAccount.php';"/><br><br>
 </center>
 </body>
 </html>

@@ -3,6 +3,7 @@
 <?php
 //sara hartley - page format and content
 //krithik raja - sql database connection and modification
+session_start();
 require_once "config.php";
 $conn=mysqli_connect(DB_SERVER, DB_USERNAME, DB_PASSWORD, DB_NAME); //seems like in order to insert data, you need to connect to the databse regardless if the config file already did
       if(!$conn){
@@ -72,9 +73,8 @@ function test_input($data) {
   <input type="submit" value="Create Account">
 </form>
 
-<form method = "Post" action = "login.php">
-	<input type="submit" value="Back to Login"><br><br>
-</form>
+
+<input type="button" value="Back to Login" onclick="window.location.href='login.php';"/><br><br>
 </center>
 </body>
 </html>

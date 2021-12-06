@@ -1,18 +1,23 @@
-<!--order.php-->
 <?php
 session_start();
 
 require_once "config.php";
-
+$conn=mysqli_connect(DB_SERVER, DB_USERNAME, DB_PASSWORD, DB_NAME); //seems like in order to insert data, you need to connect to the databse regardless if the config file already did
+      if(!$conn){
+          die('Could not Connect MySql Server:' .mysql_error());
+        }
 $preError = "Select from the options for each category.";
+$choices = array(0,0,0,0,0,0,0,0,0,0,0,0,0,0,0);
+
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
-	$choices = array();
+	//$choices = array();
 	$tempBool = true;
-	
+	$choices = array();
 	//size
 	if(empty($_POST['size'])){
 		$error = "The Size category is missing a selection.";
 		$tempBool = false;
+		array_push($choices,0);
 	}else{
 		switch($_POST['size']){
 			case "small":
@@ -25,6 +30,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 				$arrayVal1 = 2;
 				break;
 		}
+		
 		array_push($choices,$arrayVal1);
 	}
 	
@@ -32,6 +38,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 	if(empty($_POST['crust'])){
 		$error = "The Crust category is missing a selection.";
 		$tempBool = false;
+		array_push($choices,0);
+
 
 	}else{
 		switch($_POST['crust']){
@@ -55,6 +63,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 	if(empty($_POST['toppings'])){
 		$error = "The Toppings category is missing a selection.";
 		$tempBool = false;
+		array_push($choices,0,0,0,0,0,0,0);
 		
 	}else if((in_array("noTopping",$_POST['toppings'])) and (in_array("sausage",$_POST['toppings'])) 
 		or (in_array("noTopping",$_POST['toppings'])) and (in_array("pepperoni",$_POST['toppings'])) 
@@ -129,6 +138,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 	if(empty($_POST['sauce'])){
 		$error = "The Sauce category is missing a selection.";
 		$tempBool = false;
+		array_push($choices,0);
 
 	}else{
 		switch($_POST['sauce']){
@@ -149,6 +159,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 	if(empty($_POST['sides'])){
 		$error = "The Sides category is missing a selection.";
 		$tempBool = false;
+		array_push($choices,0,0,0,0);
+
 		
 	}else if((in_array("noSide",$_POST['sides'])) and (in_array("breadSticks",$_POST['sides'])) 
 		or (in_array("noSide",$_POST['sides'])) and (in_array("lavaCake",$_POST['sides']))
@@ -197,6 +209,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 	if(empty($_POST['orderType'])){
 		$error = "The Order Type category is missing a selection.";
 		$tempBool = false;
+		array_push($choices,0);
+
 
 	}else{
 		switch($_POST['orderType']){
@@ -219,6 +233,51 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 	if ($tempBool==true){
 		$_SESSION["orderArray"] = $choices;
 		
+		//Order class code goes here ************************
+		$size = $choices[0];
+		$crust = $choices[1];
+		$noTop = $choices[2];
+		$sausage = $choices[3];
+		$pepperoni = $choices[4];
+		$chicken = $choices[5];
+		$JalepPep = $choices[6];
+		$cheese = $choices[7];
+		$extraCheese = $choices[8];
+		$sauce = $choices[9];
+		$noSide = $choices[10];
+		$bread = $choices[11];
+		$cake = $choices[12];
+		$salad = $choices[13];
+		$orderType = $choices[14];
+		
+        $sql = "INSERT into Toppings(size, crust, noneToppings, sausage, pepperoni, chicken, cheese, jalepPep, sauce,extraCheese, breadsticks, lavaCake, salad, noneSide, orderType) VALUES ('$size','$crust','$noTop','$sausage','$pepperoni','$chicken','$cheese','$JalepPep','$sauce','$extraCheese','$bread','$cake','$salad','$noSide','$orderType');";
+        if (mysqli_query($conn, $sql)) {
+            echo "New record has been added successfully !";
+			header('Location: transaction.php');
+
+			
+         } else {
+			$error = "There was a Problem processing your order. Please contact the Admin.";
+            echo "Error: " . $sql . ":-" . mysqli_error($conn);
+         }
+         mysqli_close($conn);
+		
+		
+		/*$returnBool=true;
+		if ($returnBool == true){
+			//call transaction page
+		}else{
+			//$error = "There was a Problem processing your order. Please contact the Admin.";
+		}*/
+	}
+}
+
+function test_input($data) {
+  $data = trim($data);
+  $data = stripslashes($data);
+  $data = htmlspecialchars($data);
+  return $data;
+}
 class Order
 {
     function getSize() { return $this->size; }
@@ -255,8 +314,8 @@ class Order
 }
 
 $order = new Order();
-
-switch ($choices[0]) // size
+$testVar = $choices[0];
+switch ($testVar) // size
 {
     case '0':
         $order->size = "small";
@@ -403,25 +462,8 @@ switch ($choices[14]) // order type
         $order->orderType = "delivery";
         break;
 }
-		
-		$_SESSION["total"] = 4.57;
-		$returnBool=true;
-		if ($returnBool == true){
-			//call transaction page
-			header('Location: transaction.php');
-		}else{
-			$error = "There was a Problem processing your order. Please contact the Admin.";
-		}
-	}
-}
-
-function test_input($data) {
-  $data = trim($data);
-  $data = stripslashes($data);
-  $data = htmlspecialchars($data);
-  return $data;
-}
 ?>
+
 
 <!DOCTYPE html>
 <html>
